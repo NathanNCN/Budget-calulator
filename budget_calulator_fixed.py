@@ -8,10 +8,10 @@ class MyWindow(QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__()
         self.initUI()
-
-    def initUI(self):
         self.weekly_expenses = 0
         self.famliy_income = {}
+
+    def initUI(self):
         self.setGeometry(200, 200, 700, 500)
         self.setWindowTitle("Budget")
 
@@ -47,25 +47,25 @@ class MyWindow(QMainWindow):
         self.textbox3.resize(90, 40)
 
         # input box for weekly expsense
-        self.textboxexpesnives = QLineEdit(self)
-        self.textboxexpesnives.setText("food cost")
-        self.textboxexpesnives.move(250, 400)
-        self.textboxexpesnives.resize(100, 40)
+        self.textbox_expesnives = QLineEdit(self)
+        self.textbox_expesnives.setText("food cost")
+        self.textbox_expesnives.move(250, 400)
+        self.textbox_expesnives.resize(100, 40)
 
-        self.textboxexpesnives2 = QLineEdit(self)
-        self.textboxexpesnives2.setText("transportation cost")
-        self.textboxexpesnives2.move(250, 340)
-        self.textboxexpesnives2.resize(100, 40)
+        self.textbox_expesnives2 = QLineEdit(self)
+        self.textbox_expesnives2.setText("transportation cost")
+        self.textbox_expesnives2.move(250, 340)
+        self.textbox_expesnives2.resize(100, 40)
 
-        self.textboxexpesnives3 = QLineEdit(self)
-        self.textboxexpesnives3.setText("entertainment cost")
-        self.textboxexpesnives3.move(360, 340)
-        self.textboxexpesnives3.resize(100, 40)
+        self.textbox_expesnives3 = QLineEdit(self)
+        self.textbox_expesnives3.setText("entertainment cost")
+        self.textbox_expesnives3.move(360, 340)
+        self.textbox_expesnives3.resize(100, 40)
 
-        self.textboxexpesnives4 = QLineEdit(self)
-        self.textboxexpesnives4.setText("random cost")
-        self.textboxexpesnives4.move(360, 400)
-        self.textboxexpesnives4.resize(100, 40)
+        self.textbox_expesnives4 = QLineEdit(self)
+        self.textbox_expesnives4.setText("random cost")
+        self.textbox_expesnives4.move(360, 400)
+        self.textbox_expesnives4.resize(100, 40)
 
         self.b2 = QtWidgets.QPushButton(self)
         self.b2.move(305, 450)
@@ -86,6 +86,10 @@ class MyWindow(QMainWindow):
         self.label3.setText("")
         self.label3.move(50, 150)
         self.label3.hide()
+    def if_varible_isnumeric(self,values):
+        for value in values:
+            if value.isdigit()==False:
+                sys.exit()
 
     def add_person(self):
         name_of_person = self.textbox.text()
@@ -104,12 +108,13 @@ class MyWindow(QMainWindow):
         self.b2.setEnabled(True)
 
     def weekly_expnses_saved(self):
-        expense_food = self.textboxexpesnives.text()
-        expense_transportion = self.textboxexpesnives2.text()
-        expense_entertainment = self.textboxexpesnives3.text()
-        expense_other = self.textboxexpesnives4.text()
-        if expense_food.isdigit() == False or expense_transportion.isdigit() == False or expense_entertainment.isdigit() == False or expense_other.isdigit() == False:
-            sys.exit()
+        expense_food = self.textbox_expesnives.text()
+        expense_transportion = self.textbox_expesnives2.text()
+        expense_entertainment = self.textbox_expesnives3.text()
+        expense_other = self.textbox_expesnives4.text()
+        values=[expense_other,expense_food,expense_entertainment,expense_transportion]
+        self.if_varible_isnumeric(values)
+
         self.weekly_expenses += float(expense_food) + float(expense_transportion) + float(expense_entertainment) + float(expense_other)
         self.label2 = QtWidgets.QLabel(self)
         self.label2.setText(f"{self.weekly_expenses}")
@@ -131,11 +136,11 @@ class MyWindow(QMainWindow):
             self.label3.show()
 
 
-def window():
+def main():
     app = QApplication(sys.argv)
     win = MyWindow()
     win.show()
     sys.exit(app.exec_())
 
 
-window()
+main()
